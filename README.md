@@ -1,3 +1,3 @@
-# detect_melenoma_1
+# detect_melanoma
 
 A new Flutter project.
