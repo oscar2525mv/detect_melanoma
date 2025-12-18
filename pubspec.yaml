@@ -1,0 +1,24 @@
+name: detect_melenoma_1
+description: "Visualiseur Multi-Modèle de Détection de Mélanome"
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^4.4.2
+  webview_flutter_android: ^4.10.11
+  permission_handler: ^12.0.1
+  image_picker: ^1.2.1
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
