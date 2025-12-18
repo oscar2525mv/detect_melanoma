@@ -1,9 +1,399 @@
+// content.js - Preloaded content for Melanoma Detector Pipeline Presentation
+// This file contains the markdown content embedded as JavaScript strings.
+
 window.preloadedContent = {
-    "prompt-content": `# Prompt Original\n\n## Contexte\nAgis en tant qu'expert en Flutter et développement mobile.\n\n## Objectif\nJe veux créer un NOUVEAU projet Flutter en me basant sur le code du projet actuel de "Trash/Garbage Detection". La nouvelle application sera un **"Visualiseur Multi-Modèle de Détection de Mélanome"**.\n\nTu dois prendre en charge la création complète du fichier en incluant toutes les logiques de configuration, permissions et injection de scripts.\n\n---\n\n## Règle Critique : Transformation des URLs\n\nLes "Hugging Face Spaces" ont une URL publique et une URL directe. Tu dois implémenter une fonction qui transforme automatiquement toute URL fournie par moi ou par l'utilisateur selon cette logique :\n\n- **Entrée (Originale) :** \`https://huggingface.co/spaces/UTILISATEUR/REPO\`\n- **Sortie (Directe) :** \`https://UTILISATEUR-REPO.hf.space\`\n- **Logique :** Remplace le slash \`/\` entre l'utilisateur et le nom du repo par un tiret \`-\`, et change le domaine en \`.hf.space\`.\n\n---\n\n## Fonctionnalités Requises\n\n### 1. Menu de Sélection de Modèles\nImplémente une interface ergonomique pour basculer rapidement entre différents modèles.\n\n### 2. Liste Initiale de Modèles\nL'application doit démarrer avec cette liste préchargée. Applique la règle de transformation ci-dessus à ces URL originales avant de les charger :\n\n- \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector\`\n- \`https://huggingface.co/spaces/ish028792/melanoma\`\n- \`https://huggingface.co/spaces/dehannoor3199/melanoma-detection-system\`\n- \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector2\`\n- \`https://huggingface.co/spaces/Nachosanchezz/Melanoma\`\n\n### 3. Ajout Dynamique de Modèle\nAjoute un moyen pour l'utilisateur d'ajouter une nouvelle URL originale Hugging Face. Le code doit détecter le format et le transformer automatiquement.\n\n### 4. Blocage de Navigation\nModifie le \`NavigationDelegate\` pour autoriser uniquement la navigation au sein du domaine \`.hf.space\` du modèle actif et bloquer tout le reste pour que l'utilisateur ne sorte pas de l'outil.\n\n### 5. Amélioration Visuelle\nLe but est que l'application ressemble le plus possible à une application native.\n- Implémente une logique d'injection JavaScript/CSS.\n- **Mission :** Propose et intègre un code CSS intelligent pour masquer les éléments de l'interface web de Hugging Face qui ne sont pas nécessaires dans une app mobile (comme les headers, footers, ou barres de navigation web), afin d'offrir une expérience utilisateur propre et immersive.\n\n### 6. Gestion des Permissions\nLe code doit inclure toute la logique nécessaire pour demander l'accès à la **Caméra** et à la **Galerie**, car ces modèles nécessitent l'upload d'images. Réplique la logique robuste du projet base pour la compatibilité Android.\n\n---\n\n## Livrable\nGénère le code complet et fonctionnel dans un projet nouveau.`,
+    "tasks-content": `# Tâches du Projet : Visualiseur Multi-Modèle de Détection de Mélanome
 
-    "tasks-content": `# Tâches du Projet : Visualiseur Multi-Modèle de Détection de Mélanome\n\n## Résumé\nCréer une nouvelle application Flutter basée sur le projet HF_WebView existant, avec un système multi-modèle pour la détection de mélanome.\n\n---\n\n## Phase 1 : Planification ✅\n- [x] Analyser le projet source HF_WebView\n- [x] Comprendre la structure et les dépendances\n- [x] Créer le plan d'implémentation\n\n## Phase 2 : Création du Nouveau Projet ✅\n- [x] Créer le nouveau projet Flutter "detect_melenoma_1"\n- [x] Configurer le pubspec.yaml avec les dépendances\n- [x] Configurer l'AndroidManifest.xml avec les permissions\n\n## Phase 3 : Implémentation du Code Principal ✅\n- [x] Créer la fonction de transformation d'URL Hugging Face\n- [x] Créer le modèle de données pour les modèles\n- [x] Implémenter le menu de sélection de modèles (Drawer)\n- [x] Implémenter l'ajout dynamique de modèles\n- [x] Configurer le WebViewController avec blocage de navigation\n- [x] Implémenter l'injection CSS/JS pour masquer les éléments HF\n- [x] Implémenter la gestion des permissions (Caméra + Galerie)\n\n## Phase 4 : Vérification ✅\n- [x] Analyser le code pour erreurs (\`flutter analyze\`)\n- [x] Vérifier les dépendances (\`flutter pub get\`)\n- [x] Documenter le projet\n\n## Phase 5 : Présentation Interactive (Nouveau)\n- [x] Créer le dossier \`pipeline_presentation\`\n- [x] Créer \`index.html\` (Structure & Layout)\n- [x] Créer \`style.css\` (Design Canva & Animations)\n- [x] Créer \`script.js\` (Logique Markdown & Navigation)\n- [x] Intégrer les placeholders et la navigation\n\n---\n\n## Statut Final : ✅ TERMINÉ`,
+## Résumé
+Créer une nouvelle application Flutter basée sur le projet HF_WebView existant, avec un système multi-modèle pour la détection de mélanome.
 
-    "plan-content": `# Plan d'Implémentation : Visualiseur Multi-Modèle de Détection de Mélanome\n\nApplication Flutter permettant de basculer entre différents modèles de détection de mélanome hébergés sur Hugging Face Spaces.\n\n## Aperçu\n\nL'application transformera automatiquement les URLs Hugging Face en URLs directes \`.hf.space\`, permettra à l'utilisateur de sélectionner parmi plusieurs modèles pré-configurés, d'en ajouter dynamiquement, et offrira une expérience native en masquant les éléments d'interface Hugging Face.\n\n---\n\n## Règle de Transformation d'URL\n\n\`\`\`\nEntrée  : https://huggingface.co/spaces/UTILISATEUR/REPO\nSortie  : https://UTILISATEUR-REPO.hf.space\n\`\`\`\n\n**Exemple :**\n- \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector\`\n- → \`https://sapnashettyy-melanoma-detector.hf.space\`\n\n---\n\n## Modèles Initiaux\n\n| Nom du Modèle | URL Originale | URL Transformée |\n|---------------|---------------|-----------------|\n| Melanoma Detector (sapnashettyy) | \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector\` | \`https://sapnashettyy-melanoma-detector.hf.space\` |\n| Melanoma (ish028792) | \`https://huggingface.co/spaces/ish028792/melanoma\` | \`https://ish028792-melanoma.hf.space\` |\n| Melanoma Detection System | \`https://huggingface.co/spaces/dehannoor3199/melanoma-detection-system\` | \`https://dehannoor3199-melanoma-detection-system.hf.space\` |\n| Melanoma Detector 2 | \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector2\` | \`https://sapnashettyy-melanoma-detector2.hf.space\` |\n| Melanoma (Nachosanchezz) | \`https://huggingface.co/spaces/Nachosanchezz/Melanoma\` | \`https://Nachosanchezz-Melanoma.hf.space\` |\n\n---\n\n## Structure du Projet\n\n\`\`\`\ndetect_melenoma_1/\n├── lib/\n│   └── main.dart                 # Code principal de l'application\n├── android/\n│   └── app/\n│       └── src/\n│           └── main/\n│               ├── AndroidManifest.xml    # Permissions Android\n│               └── res/\n│                   └── xml/\n│                       └── file_paths.xml # FileProvider config\n├── pubspec.yaml                  # Dépendances Flutter\n└── docs/                         # Documentation\n\`\`\`\n\n---\n\n## Fichiers à Créer\n\n### 1. pubspec.yaml\n\nConfiguration du projet avec les dépendances :\n- \`webview_flutter\` et \`webview_flutter_android\` pour le WebView\n- \`permission_handler\` pour les permissions caméra/galerie\n- \`image_picker\` pour la sélection d'images\n- \`shared_preferences\` pour la persistance des modèles ajoutés\n\n### 2. lib/main.dart\n\nFichier principal contenant :\n\n1. **Classe \`MelanomaModel\`** - Modèle de données avec :\n   - \`name\` : Nom affiché\n   - \`originalUrl\` : URL Hugging Face originale\n   - \`directUrl\` : URL transformée (calculée automatiquement)\n\n2. **Fonction \`transformHuggingFaceUrl()\`** - Transformation automatique :\n   \`\`\`dart\n   // Entrée : https://huggingface.co/spaces/USER/REPO\n   // Sortie : https://USER-REPO.hf.space\n   \`\`\`\n\n3. **Interface de sélection de modèles** - Drawer latéral ergonomique avec :\n   - Liste des modèles disponibles\n   - Indicateur du modèle actif\n   - Bouton d'ajout de nouveau modèle\n\n4. **Boîte de dialogue d'ajout dynamique** - Permet à l'utilisateur d'entrer une URL originale\n\n5. **NavigationDelegate restrictif** - Bloque toute navigation hors du domaine \`.hf.space\` actif\n\n6. **Injection CSS/JS avancée** - Masque :\n   - Headers et footers Hugging Face\n   - Boutons "Show API"\n   - Bannières de chargement\n   - Navigation Gradio\n\n### 3. AndroidManifest.xml\n\nPermissions Android requises :\n- \`INTERNET\`\n- \`CAMERA\`\n- \`READ_EXTERNAL_STORAGE\` (Android < 13)\n- \`READ_MEDIA_IMAGES\` (Android 13+)\n\n### 4. file_paths.xml\n\nConfiguration FileProvider pour compatibilité image_picker.\n\n---\n\n## Plan de Vérification\n\n### Tests Automatisés\n- Analyse statique avec \`flutter analyze\`\n- Compilation avec \`flutter build apk --debug\`\n\n### Vérification Manuelle\n- Test de la fonction de transformation d'URL\n- Test du changement de modèle\n- Test de l'ajout dynamique de modèle\n- Test du blocage de navigation`,
+---
 
-    "walkthrough-content": `# Walkthrough : Visualiseur Multi-Modèle de Détection de Mélanome\n\n## ✅ Résumé du Travail Accompli\n\nApplication Flutter complète permettant de visualiser et basculer entre plusieurs modèles de détection de mélanome hébergés sur Hugging Face Spaces.\n\n---\n\n## 📁 Fichiers Créés\n\n| Fichier | Description |\n|---------|-------------|\n| \`pubspec.yaml\` | Configuration avec dépendances WebView, permissions, image_picker |\n| \`lib/main.dart\` | Code principal avec toute la logique de l'application |\n| \`android/app/src/main/AndroidManifest.xml\` | Permissions Android (Caméra, Galerie, Internet) |\n| \`android/app/build.gradle.kts\` | Configuration Gradle avec résolution de conflit activity |\n| \`android/app/src/main/res/xml/file_paths.xml\` | Configuration FileProvider pour image_picker |\n\n---\n\n## 🔧 Fonctionnalités Implémentées\n\n### 1. Transformation d'URL Hugging Face\n\n\`\`\`dart\n/// Transforme une URL Hugging Face originale en URL directe .hf.space\n/// Entrée : https://huggingface.co/spaces/UTILISATEUR/REPO\n/// Sortie : https://UTILISATEUR-REPO.hf.space\nstatic String transformHuggingFaceUrl(String originalUrl) {\n  // Si c'est déjà une URL directe, la retourner telle quelle\n  if (originalUrl.contains('.hf.space')) {\n    return originalUrl;\n  }\n\n  // Pattern: https://huggingface.co/spaces/USER/REPO\n  final regex = RegExp(r'https?://huggingface\.co/spaces/([^/]+)/([^/\s]+)');\n  final match = regex.firstMatch(originalUrl);\n\n  if (match != null) {\n    final user = match.group(1)!;\n    final repo = match.group(2)!;\n    return 'https://$user-$repo.hf.space';\n  }\n\n  // Si le format n'est pas reconnu, retourner l'URL originale\n  return originalUrl;\n}\n\`\`\`\n\n### 2. Liste des Modèles Pré-chargés\n\n| Modèle | URL Transformée |\n|--------|-----------------|\n| Melanoma Detector (sapnashettyy) | \`sapnashettyy-melanoma-detector.hf.space\` |\n| Melanoma (ish028792) | \`ish028792-melanoma.hf.space\` |\n| Melanoma Detection System | \`dehannoor3199-melanoma-detection-system.hf.space\` |\n| Melanoma Detector 2 | \`sapnashettyy-melanoma-detector2.hf.space\` |\n| Melanoma (Nachosanchezz) | \`Nachosanchezz-Melanoma.hf.space\` |\n\n### 3. Menu de Sélection de Modèles\n\n- Drawer latéral avec liste des modèles\n- Indicateur du modèle actif (icône check)\n- Bouton d'ajout dynamique de modèle\n- Design Material 3 avec thème sombre violet\n\n### 4. Ajout Dynamique de Modèles\n\n- Dialogue pour entrer une URL Hugging Face originale\n- Transformation automatique en URL directe\n- Persistance automatique via SharedPreferences\n- Validation du format d'URL\n\n### 5. Blocage de Navigation (Mode Kiosque)\n\n\`\`\`dart\nonNavigationRequest: (NavigationRequest request) {\n  final currentDomain = _extractDomain(_currentModel.directUrl);\n  if (request.url.contains(currentDomain) || \n      request.url.startsWith(_currentModel.directUrl)) {\n    return NavigationDecision.navigate;\n  }\n  debugPrint('Navigation bloquée vers: \\${request.url}');\n  return NavigationDecision.prevent;\n}\n\`\`\`\n\n### 6. Injection CSS/JS pour Apparence Native\n\nLe code injecte un CSS qui masque automatiquement :\n- ✅ Headers et footers Hugging Face\n- ✅ Boutons "Show API" et "Built with Gradio"\n- ✅ Liens de branding Gradio\n- ✅ Éléments de navigation Gradio\n- ✅ Amélioration du style de scrollbar\n\n### 7. Gestion des Permissions Android\n\n\`\`\`dart\nFuture<void> _requestPermissions() async {\n  await Permission.camera.request();\n  if (Platform.isAndroid) {\n    // Android 13+ utilise READ_MEDIA_IMAGES\n    if (await Permission.photos.status.isDenied) {\n      await Permission.photos.request();\n    }\n    // Android < 13 utilise READ_EXTERNAL_STORAGE\n    if (await Permission.storage.status.isDenied) {\n      await Permission.storage.request();\n    }\n  }\n}\n\`\`\`\n\n---\n\n## 🧪 Vérification\n\n### Analyse Statique\n\`\`\`bash\n$ flutter analyze\nAnalyzing detect_melenoma_1...\nNo issues found! (ran in 2.5s)\n\`\`\`\n\n### Dépendances\n\`\`\`bash\n$ flutter pub get\nResolving dependencies...\nGot dependencies!\n\`\`\`\n\n---\n\n## 🚀 Comment Lancer l'Application\n\n\`\`\`bash\n# Se placer dans le répertoire du projet\ncd detect_melenoma_1\n\n# Télécharger les dépendances\nflutter pub get\n\n# Lancer sur Android (émulateur ou appareil connecté)\nflutter run\n\n# Ou construire l'APK\nflutter build apk\n\`\`\`\n\n---\n\n## 📱 Interface Utilisateur\n\nL'application utilise **Material Design 3** avec un thème sombre violet. Elle comprend :\n\n1. **AppBar** - Affiche le nom du modèle actif + boutons Refresh/Aide\n2. **Drawer** - Menu latéral pour sélection de modèles et ajout\n3. **WebView** - Affichage du modèle Hugging Face\n4. **FAB** - Navigation avant/arrière\n\n---\n\n## ⚠️ Avertissement\n\n> Cette application est à but **éducatif uniquement**. Les résultats ne remplacent **pas** un diagnostic médical professionnel. Consultez toujours un dermatologue.\n`
+## Phase 1 : Planification ✅
+- [x] Analyser le projet source HF_WebView
+- [x] Comprendre la structure et les dépendances
+- [x] Créer le plan d'implémentation
+
+## Phase 2 : Création du Nouveau Projet ✅
+- [x] Créer le nouveau projet Flutter "detect_melenoma_1"
+- [x] Configurer le pubspec.yaml avec les dépendances
+- [x] Configurer l'AndroidManifest.xml avec les permissions
+
+## Phase 3 : Implémentation du Code Principal ✅
+- [x] Créer la fonction de transformation d'URL Hugging Face
+- [x] Créer le modèle de données pour les modèles
+- [x] Implémenter le menu de sélection de modèles (Drawer)
+- [x] Implémenter l'ajout dynamique de modèles
+- [x] Configurer le WebViewController avec blocage de navigation
+- [x] Implémenter l'injection CSS/JS pour masquer les éléments HF
+- [x] Implémenter la gestion des permissions (Caméra + Galerie)
+
+## Phase 4 : Vérification ✅
+- [x] Analyser le code pour erreurs (\`flutter analyze\`)
+- [x] Vérifier les dépendances (\`flutter pub get\`)
+- [x] Documenter le projet
+
+## Phase 5 : Présentation Interactive (Nouveau)
+- [x] Créer le dossier \`pipeline_presentation\`
+- [x] Créer \`index.html\` (Structure & Layout)
+- [x] Créer \`style.css\` (Design Canva & Animations)
+- [x] Créer \`script.js\` (Logique Markdown & Navigation)
+- [x] Intégrer les placeholders et la navigation
+
+---
+
+## Statut Final : ✅ TERMINÉ`,
+
+    "prompt-content": `# Prompt Original
+
+## Contexte
+Agis en tant qu'expert en Flutter et développement mobile.
+
+## Objectif
+Je veux créer un NOUVEAU projet Flutter en me basant sur le code du projet actuel de "Trash/Garbage Detection". La nouvelle application sera un **"Visualiseur Multi-Modèle de Détection de Mélanome"**.
+
+Tu dois prendre en charge la création complète du fichier en incluant toutes les logiques de configuration, permissions et injection de scripts.
+
+---
+
+## Règle Critique : Transformation des URLs
+
+Les "Hugging Face Spaces" ont une URL publique et une URL directe. Tu dois implémenter une fonction qui transforme automatiquement toute URL fournie par moi ou par l'utilisateur selon cette logique :
+
+- **Entrée (Originale) :** \`https://huggingface.co/spaces/UTILISATEUR/REPO\`
+- **Sortie (Directe) :** \`https://UTILISATEUR-REPO.hf.space\`
+- **Logique :** Remplace le slash \`/\` entre l'utilisateur et le nom du repo par un tiret \`-\`, et change le domaine en \`.hf.space\`.
+
+---
+
+## Fonctionnalités Requises
+
+### 1. Menu de Sélection de Modèles
+Implémente une interface ergonomique pour basculer rapidement entre différents modèles.
+
+### 2. Liste Initiale de Modèles
+L'application doit démarrer avec cette liste préchargée. Applique la règle de transformation ci-dessus à ces URL originales avant de les charger :
+
+- \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector\`
+- \`https://huggingface.co/spaces/ish028792/melanoma\`
+- \`https://huggingface.co/spaces/dehannoor3199/melanoma-detection-system\`
+- \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector2\`
+- \`https://huggingface.co/spaces/Nachosanchezz/Melanoma\`
+
+### 3. Ajout Dynamique de Modèle
+Ajoute un moyen pour l'utilisateur d'ajouter une nouvelle URL originale Hugging Face. Le code doit détecter le format et le transformer automatiquement.
+
+### 4. Blocage de Navigation
+Modifie le \`NavigationDelegate\` pour autoriser uniquement la navigation au sein du domaine \`.hf.space\` du modèle actif et bloquer tout le reste pour que l'utilisateur ne sorte pas de l'outil.
+
+### 5. Amélioration Visuelle
+Le but est que l'application ressemble le plus possible à une application native.
+- Implémente une logique d'injection JavaScript/CSS.
+- **Mission :** Propose et intègre un code CSS intelligent pour masquer les éléments de l'interface web de Hugging Face qui ne sont pas nécessaires dans une app mobile (comme les headers, footers, ou barres de navigation web), afin d'offrir une expérience utilisateur propre et immersive.
+
+### 6. Gestion des Permissions
+Le code doit inclure toute la logique nécessaire pour demander l'accès à la **Caméra** et à la **Galerie**, car ces modèles nécessitent l'upload d'images. Réplique la logique robuste du projet base pour la compatibilité Android.
+
+---
+
+## Livrable
+Génère le code complet et fonctionnel dans un projet nouveau.`,
+
+    "plan-content": `# Plan d'Implémentation : Visualiseur Multi-Modèle de Détection de Mélanome
+
+Application Flutter permettant de basculer entre différents modèles de détection de mélanome hébergés sur Hugging Face Spaces.
+
+## Aperçu
+
+L'application transformera automatiquement les URLs Hugging Face en URLs directes \`.hf.space\`, permettra à l'utilisateur de sélectionner parmi plusieurs modèles pré-configurés, d'en ajouter dynamiquement, et offrira une expérience native en masquant les éléments d'interface Hugging Face.
+
+---
+
+## Règle de Transformation d'URL
+
+\`\`\`
+Entrée  : https://huggingface.co/spaces/UTILISATEUR/REPO
+Sortie  : https://UTILISATEUR-REPO.hf.space
+\`\`\`
+
+**Exemple :**
+- \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector\`
+- → \`https://sapnashettyy-melanoma-detector.hf.space\`
+
+---
+
+## Modèles Initiaux
+
+| Nom du Modèle | URL Originale | URL Transformée |
+|---------------|---------------|-----------------|
+| Melanoma Detector (sapnashettyy) | \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector\` | \`https://sapnashettyy-melanoma-detector.hf.space\` |
+| Melanoma (ish028792) | \`https://huggingface.co/spaces/ish028792/melanoma\` | \`https://ish028792-melanoma.hf.space\` |
+| Melanoma Detection System | \`https://huggingface.co/spaces/dehannoor3199/melanoma-detection-system\` | \`https://dehannoor3199-melanoma-detection-system.hf.space\` |
+| Melanoma Detector 2 | \`https://huggingface.co/spaces/sapnashettyy/melanoma-detector2\` | \`https://sapnashettyy-melanoma-detector2.hf.space\` |
+| Melanoma (Nachosanchezz) | \`https://huggingface.co/spaces/Nachosanchezz/Melanoma\` | \`https://Nachosanchezz-Melanoma.hf.space\` |
+
+---
+
+## Structure du Projet
+
+\`\`\`
+detect_melenoma_1/
+├── lib/
+│   └── main.dart                 # Code principal de l'application
+├── android/
+│   └── app/
+│       └── src/
+│           └── main/
+│               ├── AndroidManifest.xml    # Permissions Android
+│               └── res/
+│                   └── xml/
+│                       └── file_paths.xml # FileProvider config
+├── pubspec.yaml                  # Dépendances Flutter
+└── docs/                         # Documentation
+\`\`\`
+
+---
+
+## Fichiers à Créer
+
+### 1. pubspec.yaml
+
+Configuration du projet avec les dépendances :
+- \`webview_flutter\` et \`webview_flutter_android\` pour le WebView
+- \`permission_handler\` pour les permissions caméra/galerie
+- \`image_picker\` pour la sélection d'images
+- \`shared_preferences\` pour la persistance des modèles ajoutés
+
+### 2. lib/main.dart
+
+Fichier principal contenant :
+
+1. **Classe \`MelanomaModel\`** - Modèle de données avec :
+   - \`name\` : Nom affiché
+   - \`originalUrl\` : URL Hugging Face originale
+   - \`directUrl\` : URL transformée (calculée automatiquement)
+
+2. **Fonction \`transformHuggingFaceUrl()\`** - Transformation automatique :
+   \`\`\`dart
+   // Entrée : https://huggingface.co/spaces/USER/REPO
+   // Sortie : https://USER-REPO.hf.space
+   \`\`\`
+
+3. **Interface de sélection de modèles** - Drawer latéral ergonomique avec :
+   - Liste des modèles disponibles
+   - Indicateur du modèle actif
+   - Bouton d'ajout de nouveau modèle
+
+4. **Boîte de dialogue d'ajout dynamique** - Permet à l'utilisateur d'entrer une URL originale
+
+5. **NavigationDelegate restrictif** - Bloque toute navigation hors du domaine \`.hf.space\` actif
+
+6. **Injection CSS/JS avancée** - Masque :
+   - Headers et footers Hugging Face
+   - Boutons "Show API"
+   - Bannières de chargement
+   - Navigation Gradio
+
+### 3. AndroidManifest.xml
+
+Permissions Android requises :
+- \`INTERNET\`
+- \`CAMERA\`
+- \`READ_EXTERNAL_STORAGE\` (Android < 13)
+- \`READ_MEDIA_IMAGES\` (Android 13+)
+
+### 4. file_paths.xml
+
+Configuration FileProvider pour compatibilité image_picker.
+
+---
+
+## Plan de Vérification
+
+### Tests Automatisés
+- Analyse statique avec \`flutter analyze\`
+- Compilation avec \`flutter build apk --debug\`
+
+### Vérification Manuelle
+- Test de la fonction de transformation d'URL
+- Test du changement de modèle
+- Test de l'ajout dynamique de modèle
+- Test du blocage de navigation`,
+
+    "walkthrough-content": `# Walkthrough : Visualiseur Multi-Modèle de Détection de Mélanome
+
+## ✅ Résumé du Travail Accompli
+
+Application Flutter complète permettant de visualiser et basculer entre plusieurs modèles de détection de mélanome hébergés sur Hugging Face Spaces.
+
+---
+
+## 📁 Fichiers Créés
+
+| Fichier | Description |
+|---------|-------------|
+| \`pubspec.yaml\` | Configuration avec dépendances WebView, permissions, image_picker |
+| \`lib/main.dart\` | Code principal avec toute la logique de l'application |
+| \`android/app/src/main/AndroidManifest.xml\` | Permissions Android (Caméra, Galerie, Internet) |
+| \`android/app/build.gradle.kts\` | Configuration Gradle avec résolution de conflit activity |
+| \`android/app/src/main/res/xml/file_paths.xml\` | Configuration FileProvider pour image_picker |
+
+---
+
+## 🔧 Fonctionnalités Implémentées
+
+### 1. Transformation d'URL Hugging Face
+
+\`\`\`dart
+/// Transforme une URL Hugging Face originale en URL directe .hf.space
+/// Entrée : https://huggingface.co/spaces/UTILISATEUR/REPO
+/// Sortie : https://UTILISATEUR-REPO.hf.space
+static String transformHuggingFaceUrl(String originalUrl) {
+  // Si c'est déjà une URL directe, la retourner telle quelle
+  if (originalUrl.contains('.hf.space')) {
+    return originalUrl;
+  }
+
+  // Pattern: https://huggingface.co/spaces/USER/REPO
+  final regex = RegExp(r'https?://huggingface\\.co/spaces/([^/]+)/([^/\\s]+)');
+  final match = regex.firstMatch(originalUrl);
+
+  if (match != null) {
+    final user = match.group(1)!;
+    final repo = match.group(2)!;
+    return 'https://$user-$repo.hf.space';
+  }
+
+  // Si le format n'est pas reconnu, retourner l'URL originale
+  return originalUrl;
+}
+\`\`\`
+
+### 2. Liste des Modèles Pré-chargés
+
+| Modèle | URL Transformée |
+|--------|-----------------|
+| Melanoma Detector (sapnashettyy) | \`sapnashettyy-melanoma-detector.hf.space\` |
+| Melanoma (ish028792) | \`ish028792-melanoma.hf.space\` |
+| Melanoma Detection System | \`dehannoor3199-melanoma-detection-system.hf.space\` |
+| Melanoma Detector 2 | \`sapnashettyy-melanoma-detector2.hf.space\` |
+| Melanoma (Nachosanchezz) | \`Nachosanchezz-Melanoma.hf.space\` |
+
+### 3. Menu de Sélection de Modèles
+
+- Drawer latéral avec liste des modèles
+- Indicateur du modèle actif (icône check)
+- Bouton d'ajout dynamique de modèle
+- Design Material 3 avec thème sombre violet
+
+### 4. Ajout Dynamique de Modèles
+
+- Dialogue pour entrer une URL Hugging Face originale
+- Transformation automatique en URL directe
+- Persistance automatique via SharedPreferences
+- Validation du format d'URL
+
+### 5. Blocage de Navigation (Mode Kiosque)
+
+\`\`\`dart
+onNavigationRequest: (NavigationRequest request) {
+  final currentDomain = _extractDomain(_currentModel.directUrl);
+  if (request.url.contains(currentDomain) || 
+      request.url.startsWith(_currentModel.directUrl)) {
+    return NavigationDecision.navigate;
+  }
+  debugPrint('Navigation bloquée vers: \${request.url}');
+  return NavigationDecision.prevent;
+}
+\`\`\`
+
+### 6. Injection CSS/JS pour Apparence Native
+
+Le code injecte un CSS qui masque automatiquement :
+- ✅ Headers et footers Hugging Face
+- ✅ Boutons "Show API" et "Built with Gradio"
+- ✅ Liens de branding Gradio
+- ✅ Éléments de navigation Gradio
+- ✅ Amélioration du style de scrollbar
+
+### 7. Gestion des Permissions Android
+
+\`\`\`dart
+Future<void> _requestPermissions() async {
+  await Permission.camera.request();
+  if (Platform.isAndroid) {
+    // Android 13+ utilise READ_MEDIA_IMAGES
+    if (await Permission.photos.status.isDenied) {
+      await Permission.photos.request();
+    }
+    // Android < 13 utilise READ_EXTERNAL_STORAGE
+    if (await Permission.storage.status.isDenied) {
+      await Permission.storage.request();
+    }
+  }
+}
+\`\`\`
+
+---
+
+## 🧪 Vérification
+
+### Analyse Statique
+\`\`\`bash
+$ flutter analyze
+Analyzing detect_melenoma_1...
+No issues found! (ran in 2.5s)
+\`\`\`
+
+### Dépendances
+\`\`\`bash
+$ flutter pub get
+Resolving dependencies...
+Got dependencies!
+\`\`\`
+
+---
+
+## 🚀 Comment Lancer l'Application
+
+\`\`\`bash
+# Se placer dans le répertoire du projet
+cd detect_melenoma_1
+
+# Télécharger les dépendances
+flutter pub get
+
+# Lancer sur Android (émulateur ou appareil connecté)
+flutter run
+
+# Ou construire l'APK
+flutter build apk
+\`\`\`
+
+---
+
+## 📱 Interface Utilisateur
+
+L'application utilise **Material Design 3** avec un thème sombre violet. Elle comprend :
+
+1. **AppBar** - Affiche le nom du modèle actif + boutons Refresh/Aide
+2. **Drawer** - Menu latéral pour sélection et ajout de modèles
+3. **WebView** - Affichage plein écran du modèle Hugging Face
+4. **FAB** - Boutons flottants pour navigation avant/arrière
+5. **Overlay de chargement** - Animation pendant le chargement des pages
+6. **Dialogue d'aide** - Instructions d'utilisation
+
+---
+
+## ⚠️ Avertissement
+
+> Cette application est à but **éducatif uniquement**. Les résultats de détection de mélanome fournis par les modèles ne remplacent **pas** un avis médical professionnel. Consultez toujours un dermatologue pour tout diagnostic.
+
+---
+
+## 📂 Emplacement du Projet
+
+\`\`\`
+c:\\Users\\martv\\Proyect\\projet_webview\\HF_WebView\\detect_melenoma_1\\
+\`\`\``
 };

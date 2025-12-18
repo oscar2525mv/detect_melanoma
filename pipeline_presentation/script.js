@@ -28,30 +28,43 @@ function loadMarkdownFile(filename, targetId) {
     const element = document.getElementById(targetId);
     if (!element) return;
 
+    // Helper to display content
+    const displayContent = (text) => {
+        // Save content for modal usage
+        element.dataset.fullContent = text;
+
+        // Render content
+        // Note: The previous version was creating an unused preview var and rendering full content
+        element.innerHTML = marked.parse(text);
+
+        // Remove placeholder styling
+        const placeholder = element.querySelector('.placeholder-text');
+        if (placeholder) placeholder.remove();
+    };
+
     fetch(filename)
         .then(response => {
             if (!response.ok) throw new Error("HTTP " + response.status);
             return response.text();
         })
         .then(text => {
-            // Save content for modal usage
-            element.dataset.fullContent = text;
-
-            // Render a preview (first 200 chars or summary)
-            const preview = text.substring(0, 300) + "...";
-            element.innerHTML = marked.parse(text); // Render all for now in the preview box
-
-            // Remove placeholder styling
-            const placeholder = element.querySelector('.placeholder-text');
-            if (placeholder) placeholder.remove();
-
+            console.log(`Loaded ${filename} via fetch (Live Mode)`);
+            displayContent(text);
         })
         .catch(err => {
-            console.error('Error loading ' + filename, err);
-            element.innerHTML = `<div class="placeholder-text error">
-                Erreur: Impossible de charger ${filename}.<br>
-                <small>Si vous êtes en local, utilisez un serveur (ex: <code>python -m http.server</code>) ou VS Code Live Server.</small>
-            </div>`;
+            console.warn(`Fetch failed for ${filename}, trying fallback...`, err);
+
+            // Fallback to preloaded content from content.js
+            if (window.preloadedContent && window.preloadedContent[targetId]) {
+                console.log(`Loaded ${filename} from preloaded cache (Fallback Mode)`);
+                displayContent(window.preloadedContent[targetId]);
+            } else {
+                console.error('Fallback failed for ' + filename);
+                element.innerHTML = `<div class="placeholder-text error">
+                    Erreur: Impossible de charger ${filename}.<br>
+                    <small>Fichier non trouvé et aucun contenu de secours disponible.</small>
+                </div>`;
+            }
         });
 }
 
