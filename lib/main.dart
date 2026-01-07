@@ -539,7 +539,7 @@ class _MelanomaDetectorPageState extends State<MelanomaDetectorPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Modèles réinitialisés par défaut'),
-            backgroundColor: Colors.red.shade700,
+            backgroundColor: Colors.grey.shade800,
           ),
         );
       }

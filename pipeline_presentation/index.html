@@ -169,14 +169,24 @@
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                         </svg>
                     </div>
-                    <h2 class="card-title">Application Finale</h2>
-                    <p class="card-desc">Le projet est prêt à être déployé.</p>
+                    <h2 class="card-title">Démonstration</h2>
+                    <p class="card-desc">Aperçu en temps réel (Vitesse x2)</p>
                 </div>
-                <div class="card-content centered">
-                    <button class="btn-primary glow-effect" onclick="launchAppProtocol()">
-                        <span class="btn-icon">🚀</span> Lancer l'Application
-                    </button>
-                    <p class="helper-text">ou exécutez <code>flutter run</code> dans le terminal</p>
+                <div class="card-content centered" style="width: 100%; padding: 0; text-align: center;">
+                    <video id="demo-video" style="width: 50%; height: auto; display: block; margin: 0 auto;" autoplay
+                        loop muted playsinline controls>
+                        <source src="Screen_recording.webm" type="video/webm">
+                        Votre navigateur ne supporte pas la balise vidéo.
+                    </video>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var video = document.getElementById('demo-video');
+                            if (video) {
+                                video.playbackRate = 2.0;
+                            }
+                        });
+                    </script>
                 </div>
             </article>
 
@@ -214,6 +224,7 @@
             'walkthrough-content': '04_walkthrough.md'
         };
     </script>
+    <script src="content.js"></script>
     <script src="script.js"></script>
 </body>
 
